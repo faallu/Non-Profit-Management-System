@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: whitesmoke;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+}
+
+/*.topbar {
+    background-color: teal;
+    color: whitesmoke;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}*/
+
+.topbar a {
+    color: whitesmoke;
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.content-wrapper {
+    display: flex;
+    flex: 1; 
+}
+
+.sidebar {
+    width: 25%;
+    color:black;
+    padding: 20px;
+}
+
+.main-content {
+    flex: 1; 
+    padding: 20px;
+    overflow-y: auto; /* Allow content to scroll if needed */
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 10px;
+    font-size: 18px; 
+    text-decoration:none;
+}
+
+.card-body {
+    padding: 25px;
+    background-color: #ffffff;
+}
+
+.text-secondary {
+    color: #b6b7aa;
+}
+
+
