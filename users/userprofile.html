@@ -14,9 +14,9 @@
                     <div class="card-body">
                         <img src="blankphoto.png" class="rounded-circle" width="150">
                         <div class="mt-3">
-                            <h3>Jane Doe</h3>
-                            <h5>Member since 2009</h5>
-                            <a href="#">Edit Personal Information</a>
+                            <h3 id="userName">Jane Doe</h3>
+                            <h5 id="memberSince">Member since 2009</h5>
+                            <a href="#" id="editInfo">Edit Personal Information</a>
                             <a href="#">Availability</a>
                             <a href="#">Full Volunteering History</a>
                             <a href="#">Settings</a>
@@ -33,7 +33,7 @@
                             <div class="col-md-3">
                                 <h5>Full Name</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
+                            <div class="col-md-9 text-secondary" id="fullName">
                                 Jane Doe
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="col-md-3">
                                 <h5>Email</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
+                            <div class="col-md-9 text-secondary" id="email">
                                 abc@gmail.com
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             <div class="col-md-3">
                                 <h5>Phone</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
+                            <div class="col-md-9 text-secondary" id="phone">
                                 7132811234
                             </div>
                         </div>
@@ -60,15 +60,43 @@
                             <div class="col-md-3">
                                 <h5>Address</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
+                            <div class="col-md-9 text-secondary" id="address">
                                 1234 Main St.
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Location</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary" id="location">
+                                Houston, TX
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Skills</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary" id="skills">
+                                Cooking, Teaching
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Preferences</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary">
+                                <p>Volunteer Type: <span id="volunteerType">Community Service</span></p>
+                                <p>Availability: <span id="availability">Weekends</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card mb-3 content">
                     <h1 class="m-3">Recent Volunteer History</h1>
-                    <div class="card-body">
+                    <div class="card-body" id="volunteerHistory">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Volunteering Event</h5>
@@ -82,5 +110,37 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            fetch('/api/users/1')
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById('userName').innerText = `${user.firstName} ${user.lastName}`;
+                    document.getElementById('memberSince').innerText = `Member since ${user.memberSince}`;
+                    document.getElementById('fullName').innerText = `${user.firstName} ${user.lastName}`;
+                    document.getElementById('email').innerText = user.email;
+                    document.getElementById('phone').innerText = user.phone;
+                    document.getElementById('address').innerText = user.address;
+                    document.getElementById('location').innerText = user.location;
+                    document.getElementById('skills').innerText = user.skills.join(', ');
+                    document.getElementById('volunteerType').innerText = user.preferences.volunteerType;
+                    document.getElementById('availability').innerText = user.preferences.availability;
+                    const historyContainer = document.getElementById('volunteerHistory');
+                    user.volunteerHistory.forEach(event => {
+                        const row = document.createElement('div');
+                        row.classList.add('row');
+                        row.innerHTML = `
+                            <div class="col-md-3">
+                                <h5>${event.event}</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary">
+                                ${event.description}
+                            </div>
+                        `;
+                        historyContainer.appendChild(row);
+                    });
+                });
+        });
+    </script>
 </body>
 </html>
