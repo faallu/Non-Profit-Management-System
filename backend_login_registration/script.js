@@ -1,18 +1,21 @@
+const container = document.getElementById('container');
+const registerBtn = document.getElementById('register');
+const loginBtn = document.getElementById('login');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+});
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const signUpForm = document.querySelector('signUpForm');
     const signInForm = document.querySelector('signIForm');
     const loginButton = document.getElementById('login');
     const registerButton = document.getElementById('register');
     const container = document.getElementById('container');
-
-    // Toggle between sign-up and sign-in forms
-    loginButton.addEventListener('click', () => {
-        container.classList.remove('sign-up-mode');
-    });
-
-    registerButton.addEventListener('click', () => {
-        container.classList.add('sign-up-mode');
-    });
 
     // Handle sign-up form submission
     signUpForm.addEventListener('submit', async function (event) {

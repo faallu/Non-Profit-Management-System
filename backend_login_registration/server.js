@@ -1,12 +1,10 @@
-const http = require("http");
-const express = require('express');
-
+const express = require("express")
 const app = express();
 const fs = require('fs');
 const path = require('path');
 
 const hostname = '127.0.0.1';  
-const port = 3000;
+const port = 5500;
 
 app.use(express.static(path.join(__dirname, 'backend_login_registration')));
 
