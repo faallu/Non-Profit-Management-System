@@ -29,7 +29,7 @@ def user_validation(user):
         "properties": {
             "name": {"type": "string", "minLength" : 2},
             "username": {"type": "string", "minLength" : 2},
-            "age": {"type": "integer", "minimum" : 15},
+            "age": {"type": "integer", "minimum" : 16},
             "email": {"type": "string", "format" : "email"},
             "phone": {"type": "string", "minLength" : 10},
             "password": {"type": "string", "minLength" : 8},
