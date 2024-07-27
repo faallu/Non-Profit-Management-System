@@ -15,6 +15,7 @@ UserCredentials: Stores user credentials with encrypted passwords.
 ID (Primary Key)
 username (Unique)
 password
+
 UserProfile: Stores detailed user information.
 ID (Primary Key, Foreign Key linking to UserCredentials)
 full_name
@@ -25,6 +26,7 @@ zipcode
 skills
 preferences
 availability
+
 EventDetails: Stores event information.
 event_id (Primary Key)
 event_name
@@ -33,10 +35,12 @@ location
 required_skills
 urgency
 event_date
+
 VolunteerHistory: Tracks volunteer participation in events.
 history_id (Primary Key)
 user_id (Foreign Key linking to UserProfile)
 event_id (Foreign Key linking to EventDetails)
 participation_date
+
 States: Stores state codes.
 state_code (Primary Key)
