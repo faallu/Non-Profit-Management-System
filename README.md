@@ -4,10 +4,15 @@ This project is a Volunteer Management System built using the Flask framework fo
 
 # Features
 User Authentication: Secure user creation and login with encrypted passwords.
+
 User Profiles: Management of user details including full name, address, skills, preferences, and availability.
+
 Event Management: Storage and management of event details such as name, description, location, required skills, urgency, and date.
+
 Volunteer Tracking: Tracking volunteer participation in events.
+
 State Information: Storage of state codes and names.
+
 Database Schema
 The database schema consists of the following tables:
 
