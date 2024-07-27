@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, current_app
-from app import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Text, Date, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
@@ -10,7 +9,8 @@ current_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////webapp.db'
 current_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-app.app_context().push()
+#app.app_context().push()
+#db.create_all()
 
 class UserCredentials(db.Model):
     #__tablename__ = 'UserCredentials'
@@ -63,9 +63,9 @@ class States(db.Model):
     #__tablename__ = 'States'
     stateCode = db.Column(db.String(2), primary_key=True)
 
-db.create_all()
+#db.create_all()
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     data = request.json
     username = data.get('username')
@@ -78,7 +78,7 @@ def register():
     db.session.commit()
     return jsonify({'message': 'User registered successfully'}), 201
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -117,7 +117,7 @@ def create_profile():
     db.session.commit()
     return jsonify({'message': 'Profile created successfully'}), 201
 
-@app.route('/events', methods=['POST'])
+@app.route('/events', methods=['GET', 'POST'])
 def create_event():
     data = request.json
     eventName = data.get('eventName')
@@ -140,7 +140,7 @@ def create_event():
     db.session.commit()
     return jsonify({'message': 'Event created successfully'}), 201
 
-@app.route('/volunteer', methods=['POST'])
+@app.route('/volunteer', methods=['GET', 'POST'])
 def volunteer():
     data = request.json
     userID = data.get('userID')
@@ -161,5 +161,7 @@ def volunteer():
 def index():
     return 'Hello World!'
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+        app.run(debug=True)
