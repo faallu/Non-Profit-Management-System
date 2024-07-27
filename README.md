@@ -13,18 +13,29 @@ The database schema consists of the following tables:
 
 UserCredentials: Stores user credentials with encrypted passwords.
 ID (Primary Key)
+
 username (Unique)
+
 password
+
 
 UserProfile: Stores detailed user information.
 ID (Primary Key, Foreign Key linking to UserCredentials)
+
 full_name
+
 address
+
 city
+
 state
+
 zipcode
+
 skills
+
 preferences
+
 availability
 
 EventDetails: Stores event information.
