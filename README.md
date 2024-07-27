@@ -45,11 +45,17 @@ availability
 
 # EventDetails: Stores event information.
 event_id (Primary Key)
+
 event_name
+
 description
+
 location
+
 required_skills
+
 urgency
+
 event_date
 
 # VolunteerHistory: Tracks volunteer participation in events.
