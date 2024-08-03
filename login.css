@@ -7,8 +7,7 @@
 }
 
 body{
-    background-color: #b6b7aa;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,7 +161,6 @@ body{
 .toggle{
     background-color: #b6b7aa;
     height: 100%;
-    background: linear-gradient(to right, #b6b7aa, #c9d6ff);
     color: #fff;
     position: relative;
     left: -100%;
