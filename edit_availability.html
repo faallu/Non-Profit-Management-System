@@ -1,12 +1,57 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Availability</title>
+    <title>Availability Page</title>
+    <link rel="stylesheet" href="edit_availability.css">
 </head>
+<header class="navbar">
+    <div class="navbar-left">
+        <span class="org-name"></span>
+    </div>
+    <div class="navbar-right">
+        <nav class="nav-tabs">
+            <a href="event_management_form.html" class="tab">Event Management</a>
+            <div class="dropdown">
+                <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="history.html">Volunteer History</a>
+                    <a href="#">Volunteer Matching Form</a>
+                </div>
+            <a href="#" class="tab">Notifications</a>
+            <a href="userprofile.html" class="tab">Profile</a>
+            </div>
+        </nav>
+        
+        </div>
+    </div>
+</header>
 <body>
-    What is your availability?
-    <hr>
-    <a href="userprofile.html" class="button">Save</a>
+    <div class="container">
+        <div class="card">
+            <h1>Manage Your Availability</h1>
+            <form action="edit_availability.html">
+                <div class="form-group">
+                    <label for="availabilityDate">Date</label>
+                    <input type="date" id="availabilityDate" name="availabilityDate" required />
+                </div>
+                <div class="form-group">
+                    <label for="availabilityStart">Start Time</label>
+                    <input type="time" id="availabilityStart" name="availabilityStart" required />
+                </div>
+                <div class="form-group">
+                    <label for="availabilityEnd">End Time</label>
+                    <input type="time" id="availabilityEnd" name="availabilityEnd" required />
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" rows="4" placeholder="Add any additional notes or comments"></textarea>
+                </div>
+            </form>
+        </div>
+        <a href="userprofile.html" class="button">Save</a>
+
+    </div>
 </body>
 </html>

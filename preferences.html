@@ -1,13 +1,65 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preferences</title>
+    <title>Set Your Preferences</title>
+    <link rel="stylesheet" href="edit_preferences.css">
 </head>
 <body>
-    What are your preferences?
-    <hr>
-    <a href="availability.html" class="button">Go Back</a>
-    <a href="userprofile.html" class="button">Finish account setup</a>
+    <header class="navbar">
+        <div class="navbar-left">
+            <span class="org-name"></span>
+        </div>
+        <div class="navbar-right">
+            <nav class="nav-tabs">
+                <a href="event_management_form.html" class="tab">Event Management</a>
+                <div class="dropdown">
+                    <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="history.html">Volunteer History</a>
+                        <a href="#">Volunteer Matching Form</a>
+                    </div>
+                <a href="#" class="tab">Notifications</a>
+                <a href="userprofile.html" class="tab">Profile</a>
+                </div>
+            </nav>
+            
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Set Your Preferences</h1>
+        <form>
+            <div class="preference-group">
+                <label for="location">Indoor or Outdoors?</label>
+                <select id="location" name="location">
+                    <option value="indoor">Indoor</option>
+                    <option value="outdoor">Outdoor</option>
+                </select>
+            </div>
+
+            <div class="preference-group">
+                <label>Interests:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="donations" name="interests" value="donations">
+                    <label for="donations">Donations</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="church" name="interests" value="church">
+                    <label for="church">Church-Related</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="sports" name="interests" value="sports">
+                    <label for="sports">Sports</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="community" name="interests" value="community">
+                    <label for="community">Community Outreach</label>
+                </div>
+            </div>
+
+            <a href="userprofile.html" class="button">Finish</a>        </form>
+    </div>
 </body>
 </html>

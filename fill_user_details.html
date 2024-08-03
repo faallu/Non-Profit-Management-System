@@ -1,122 +1,136 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finish setting</title>
-    <div class="main-content">
-        <div class="card mb-3 content">
-            <h1 class="m-3 pt-3">Finish setting up your account details</h1>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>Full Name</h5>
-                    </div>
-                    <div class="col-md-9 text-secondary" id="fullName">
-                        Jane Doe
-                    </div>
+    <title>Fill Account Details</title>
+    <link rel="stylesheet" href="edit_user_details.css">
+</head>
+<header class="navbar">
+    <div class="navbar-left">
+        <span class="org-name"></span>
+    </div>
+    <div class="navbar-right">
+        <nav class="nav-tabs">
+            <a href="event_management_form.html" class="tab">Event Management</a>
+            <div class="dropdown">
+                <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="history.html">Volunteer History</a>
+                    <a href="#">Volunteer Matching Form</a>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>Email</h5>
-                    </div>
-                    <div class="col-md-9 text-secondary" id="email">
-                        abc@gmail.com
-                    </div>
+            <a href="#" class="tab">Notifications</a>
+            <a href="userprofile.html" class="tab">Profile</a>
+            </div>
+        </nav>
+        
+        </div>
+    </div>
+</header>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Finishing setting up your account</h1>
+            <form action="userprofile.html">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <p id="fullName">Jane Doe</p>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>Phone</h5>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <p id="email">abc@gmail.com</p>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
                     <input type="tel" id="phone" name="phone" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>Address</h5>
-                    </div>
-                    <input type="text" placeholder="123 Main St.">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="123 Main St." />
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>State</h5>
-                    </div>
-                    <select>
-                        <option value="AL">AL</option>
-                        <option value="AK">AK</option>
-                        <option value="AR">AR</option>
-                        <option value="AZ">AZ</option>
-                        <option value="CA">CA</option>
-                        <option value="CO">CO</option>
-                        <option value="CT">CT</option>
-                        <option value="DC">DC</option>
-                        <option value="DE">DE</option>
-                        <option value="FL">FL</option>
-                        <option value="GA">GA</option>
-                        <option value="HI">HI</option>
-                        <option value="IA">IA</option>
-                        <option value="ID">ID</option>
-                        <option value="IL">IL</option>
-                        <option value="IN">IN</option>
-                        <option value="KS">KS</option>
-                        <option value="KY">KY</option>
-                        <option value="LA">LA</option>
-                        <option value="MA">MA</option>
-                        <option value="MD">MD</option>
-                        <option value="ME">ME</option>
-                        <option value="MI">MI</option>
-                        <option value="MN">MN</option>
-                        <option value="MO">MO</option>
-                        <option value="MS">MS</option>
-                        <option value="MT">MT</option>
-                        <option value="NC">NC</option>
-                        <option value="NE">NE</option>
-                        <option value="NH">NH</option>
-                        <option value="NJ">NJ</option>
-                        <option value="NM">NM</option>
-                        <option value="NV">NV</option>
-                        <option value="NY">NY</option>
-                        <option value="ND">ND</option>
-                        <option value="OH">OH</option>
-                        <option value="OK">OK</option>
-                        <option value="OR">OR</option>
-                        <option value="PA">PA</option>
-                        <option value="RI">RI</option>
-                        <option value="SC">SC</option>
-                        <option value="SD">SD</option>
-                        <option value="TN">TN</option>
-                        <option value="TX">TX</option>
-                        <option value="UT">UT</option>
-                        <option value="VT">VT</option>
-                        <option value="VA">VA</option>
-                        <option value="WA">WA</option>
-                        <option value="WI">WI</option>
-                        <option value="WV">WV</option>
-                        <option value="WY">WY</option>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state">
+                        <option value="AL">Alabama</option>
+	<option value="AK">Alaska</option>
+	<option value="AZ">Arizona</option>
+	<option value="AR">Arkansas</option>
+	<option value="CA">California</option>
+	<option value="CO">Colorado</option>
+	<option value="CT">Connecticut</option>
+	<option value="DE">Delaware</option>
+	<option value="DC">District Of Columbia</option>
+	<option value="FL">Florida</option>
+	<option value="GA">Georgia</option>
+	<option value="HI">Hawaii</option>
+	<option value="ID">Idaho</option>
+	<option value="IL">Illinois</option>
+	<option value="IN">Indiana</option>
+	<option value="IA">Iowa</option>
+	<option value="KS">Kansas</option>
+	<option value="KY">Kentucky</option>
+	<option value="LA">Louisiana</option>
+	<option value="ME">Maine</option>
+	<option value="MD">Maryland</option>
+	<option value="MA">Massachusetts</option>
+	<option value="MI">Michigan</option>
+	<option value="MN">Minnesota</option>
+	<option value="MS">Mississippi</option>
+	<option value="MO">Missouri</option>
+	<option value="MT">Montana</option>
+	<option value="NE">Nebraska</option>
+	<option value="NV">Nevada</option>
+	<option value="NH">New Hampshire</option>
+	<option value="NJ">New Jersey</option>
+	<option value="NM">New Mexico</option>
+	<option value="NY">New York</option>
+	<option value="NC">North Carolina</option>
+	<option value="ND">North Dakota</option>
+	<option value="OH">Ohio</option>
+	<option value="OK">Oklahoma</option>
+	<option value="OR">Oregon</option>
+	<option value="PA">Pennsylvania</option>
+	<option value="RI">Rhode Island</option>
+	<option value="SC">South Carolina</option>
+	<option value="SD">South Dakota</option>
+	<option value="TN">Tennessee</option>
+	<option value="TX">Texas</option>
+	<option value="UT">Utah</option>
+	<option value="VT">Vermont</option>
+	<option value="VA">Virginia</option>
+	<option value="WA">Washington</option>
+	<option value="WV">West Virginia</option>
+	<option value="WI">Wisconsin</option>
+	<option value="WY">Wyoming</option>
+</select>
                     </select>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5>Select Skills</h5>
+                <div class="skills-group">
+                    <label>Interests:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="Problem Solving" name="skills" value="Problem Solving">
+                        <label for="Problem Solving">Problem Solving</label>
                     </div>
-                    <input type="checkbox" id="leadership" name="leadership" value="leadership">
-                    <label for="leadership"> Leadership</label><br>
-
-                    <input type="checkbox" id="Time Management" name="Time Management" value="Time Management">
-                    <label for="Time Management"> Time Management</label><br>
-
-                    <input type="checkbox" id="Problem Solving" name="Problem Solving" value="Problem Solving">
-                    <label for="Time Management"> Problem Solving</label><br>
-
-                    <input type="checkbox" id="Customer Service" name="Customer Service" value="Customer Service">
-                    <label for="Customer Service"> Customer Service</label><br>
-
-                    <input type="checkbox" id="Detail Oriented" name="Detail Oriented" value="Detail Oriented">
-                    <label for="Detail Oriented"> Detail Oriented</label><br>
-                </div>
-                <hr>
-                <a href="availability.html" class="button">Continue to Availability</a>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="Leadership" name="skills" value="Leadership">
+                        <label for="Leadership">Leadership</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="Time Management" name="skills" value="Time Management">
+                        <label for="Time Management">Time Management</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="Customer Service" name="skills" value="Customer Service">
+                        <label for="Customer Service">Customer Service</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="Detail oriented" name="skills" value="Detail oriented">
+                        <label for="Detail oriented">Detail Oriented</label>
+                    </div>
+                </div>        
+            </form>
+        </div>
+        <a href="availability.html" class="button">Next: Availability</a>
+    </div>
+</body>
 </html>
