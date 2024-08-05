@@ -1,70 +1,138 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management Form</title>
-    <link href="event_management_form.css" rel = "stylesheet" type="text/css">
+    <title>Events List</title>
+    <link rel="stylesheet" href="event_management_form.css">
 </head>
-<body>
-<div class="container">
-    <div id="event-form">
-        <div class="form-header">
-            <h1>Create an Event</h1>
-        </div>
-        <form method="post" action="/">
-            <div>
-                <label for="event-name" class="label">
-                    <span class="required">Name: </span>
-                    <input type="text" id="event-name" name="event-name" class="input" maxlength="100" placeholder="Event Name" required tabindex="1" autofocus />
-                </label>
-            </div>
-            <div>
-                <label for="event-description" class="label">
-                    <span class="required">Description: </span>
-                    <textarea id="event-description" name="event-description" class="input" placeholder="Event Description" required tabindex="2"></textarea>
-                </label>
-            </div>
-            <div>
-                <label for="location" class="label">
-                    <span class="required">Location: </span>
-                    <textarea id="location" name="location" class="input" placeholder="Location" required tabindex="3"></textarea>
-                </label>
-            </div>
-            <div>
-                <label for="skills" class="label">
-                    <span class="required">Required Skills: </span>
-                    <select id="skills" name="skills" class="input" multiple tabindex="4">
-                        <option value="management">Management</option>
-                        <option value="communication">Communication</option>
-                        <option value="technical">Technical</option>
-                        <option value="leadership">Leadership</option>
-                        <option value="teamwork">Teamwork</option>
-                        <option value="problem solving">Problem Solving</option>
-                    </select>
-                </label>
-            </div>
-            <div>
-                <label for="urgency" class="label">
-                    <span class="required">Urgency: </span>
-                    <select id="urgency" name="urgency" class="input" required tabindex="5">
-                        <option value="low">Not urgent</option>
-                        <option value="medium">Urgent</option>
-                        <option value="high">Very Urgent</option>
-                    </select>
-                </label>
-            </div>
-            <div>
-                <label for="event-date" class="label">
-                    <span class="required">Date: </span>
-                    <input type="date" id="date" name="date" class="input" required tabindex="6" />
-                </label>
-            </div>
-            <div>
-                <button name="submit" type="submit" id="submit" class="button">Create Event</button>
-            </div>
-        </form>
+<!-- Header Section -->
+<header class="navbar">
+    <div class="navbar-left">
+        <span class="org-name"></span>
     </div>
-</div>
+    <div class="navbar-right">
+        <nav class="nav-tabs">
+            <a href="landing.html" class="tab">Home</a>
+            <a href="event_management_form.html" class="tab">Event Management</a>
+            <div class="dropdown">
+                <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="history.html">Volunteer History</a>
+                    <a href="#">Volunteer Matching Form</a>
+                </div>
+            </div>
+            <a href="#" class="tab">Notifications</a>
+            <a href="userprofile.html" class="tab">Profile</a>
+        </nav>
+    </div>
+</header>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upcoming Events</h1>
+        </header>
+        <div class="events-grid">
+            <!-- Event cards -->
+            <div class="event-card" data-event-id="1">
+                <h2 class="event-name">Clothing Donation</h2>
+                <p><strong>Date & Time:</strong> 2024-01-01, 9:00 AM - 12:00 PM</p>
+                <p><strong>Location:</strong> Houston, Texas</p>
+                <p><strong>Skills Needed:</strong> Teamwork, Organization</p>
+                <p><strong>Description:</strong> Give gently used clothes to organizations, which provides attire to people as a means of helping them achieve self-sufficiency. Other good options include homeless shelters and mission-based thrift stores that benefit causes such as schools</p>
+                
+                <div class="signed-up">
+                    <h3>People Who Have Signed Up:</h3>
+                    <ul>
+                        <li>John Doe</li>
+                        <li>Jane Smith</li>
+                        <li>Emily Johnson</li>
+                    </ul>
+                </div>
+                
+                <div class="match-section">
+                    <p><strong>Interested?</strong> See if you match for this event:</p>
+                    <input type="text" id="user-id" placeholder="Enter your user ID">
+                    <hr>
+                    <button class="match-button" onclick="checkMatch(1)">Check My Match</button>
+                    <p id="match-result"></p>
+                </div>
+            </div>
+
+            <!-- Other event cards -->
+            <div class="event-card" data-event-id="2">
+                <h2 class="event-name">Bring a Meal</h2>
+                <p><strong>Date & Time:</strong> 2024-03-09, 10:00 AM - 12:00 PM</p>
+                <p><strong>Location:</strong> Austin, Texas</p>
+                <p><strong>Skills Needed:</strong> Teamwork, Organization</p>
+                <p><strong>Description:</strong> Cook a meal for a family with a new baby, sick family member or other personal circumstance that may make it tough for them to cook</p>
+                
+                <div class="signed-up">
+                    <h3>People Who Have Signed Up:</h3>
+                    <ul>
+                        <li>Bob Dee</li>
+                        <li>Emily James</li>
+                        <li>Ana Thomas</li>
+                    </ul>
+                </div>
+                
+                <div class="match-section">
+                    <p><strong>Interested?</strong> See if you match for this event:</p>
+                    <input type="text" id="user-id" placeholder="Enter your user ID">
+                    <hr>
+                    <button class="match-button" onclick="checkMatch(1)">Check My Match</button>
+                    <p id="match-result"></p>
+                </div>
+            </div>
+
+            <div class="event-card" data-event-id="3">
+                <h2 class="event-name">Beach Cleanup</h2>
+                <p><strong>Date & Time:</strong> 2024-07-15, 9:00 AM - 12:00 PM</p>
+                <p><strong>Location:</strong> Sunset Beach, California</p>
+                <p><strong>Skills Needed:</strong> Teamwork, Organization</p>
+                <p><strong>Description:</strong> Join us for a beach cleanup to help maintain the beauty of our coastline</p>
+                
+                <div class="signed-up">
+                    <h3>People Who Have Signed Up:</h3>
+                    <ul>
+                        <li>Sara Jones</li>
+                        <li>Kim Smith</li>
+                        <li>Emily Johnson</li>
+                    </ul>
+                </div>
+                
+                <div class="match-section">
+                    <p><strong>Interested?</strong> See if you match for this event:</p>
+                    <input type="text" id="user-id" placeholder="Enter your user ID">
+                    <button class="match-button" onclick="checkMatch(1)">Check My Match</button>
+                    <p id="match-result"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkMatch(eventId) {
+            const userId = document.getElementById('user-id').value;
+
+            try {
+                const response = await fetch('http://localhost:5501/check-match', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId, eventId })
+                });
+
+                const result = await response.json();
+
+                document.getElementById('match-result').textContent = result.message;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 </html>
+
+

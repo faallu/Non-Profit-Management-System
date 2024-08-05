@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #333;
+    background-color: black;
     color: white;
 }
 
@@ -70,8 +70,6 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 100%;
-    max-width: 650px;
     margin-top: 20px;
 }
 

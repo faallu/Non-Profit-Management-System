@@ -7,28 +7,27 @@
     <title>User Profile</title>
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="navbar">
-        <div class="navbar-left">
-            <span class="org-name"></span>
-        </div>
-        <div class="navbar-right">
-            <nav class="nav-tabs">
-                <a href="event_management_form.html" class="tab">Event Management</a>
-                <div class="dropdown">
-                    <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
-                    <div class="dropdown-content">
-                        <a href="history.html">Volunteer History</a>
-                        <a href="#">Volunteer Matching Form</a>
-                    </div>
-                <a href="#" class="tab">Notifications</a>
-                <a href="userprofile.html" class="tab">Profile</a>
+   <!-- Header Section -->
+   <header class="navbar">
+    <div class="navbar-left">
+        <span class="org-name"></span>
+    </div>
+    <div class="navbar-right">
+        <nav class="nav-tabs">
+            <a href="landing.html" class="tab">Home</a>
+            <a href="event_management_form.html" class="tab">Event Management</a>
+            <div class="dropdown">
+                <a href="#" class="tab">Volunteers <i class="fas fa-angle-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="history.html">Volunteer History</a>
+                    <a href="#">Volunteer Matching Form</a>
                 </div>
-            </nav>
-            
             </div>
-        </div>
-    </header>
+            <a href="#" class="tab">Notifications</a>
+            <a href="userprofile.html" class="tab">Profile</a>
+        </nav>
+    </div>
+</header>
     <div class="container">
         <div class="content-wrapper">
             <div class="sidebar">
@@ -107,10 +106,18 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Preferences</h5>
+                                <h5>Event Preferences</h5>
                             </div>
                             <div class="col-md-9 text-secondary">
-                                <p>Volunteer Type: <span id="volunteerType">Community Service</span></p>
+                                <p><span id="volunteerType">Community Service, Outdoors</span></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Availability</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary">
                                 <p>Availability: <span id="availability">Weekends</span></p>
                             </div>
                         </div>
