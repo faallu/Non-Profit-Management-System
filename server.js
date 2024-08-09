@@ -23,7 +23,7 @@ const events = [
         id: 2,
         name: 'Food Drive',
         skillsNeeded: ['Communication', 'Organizational Skills'],
-        location: 'Community Center, Downtown',
+        location: 'Downtown, California',
         dateTime: '2024-06-10T10:00:00',
         description: 'Assist in collecting and distributing...',
         eventType: 'Social'
@@ -37,7 +37,7 @@ const users = [
         skills: ['Teamwork', 'Organization'],
         availability: ['2024-07-15'],
         preferences: ['Environmental'],
-        preferredLocation: 'California'
+        preferredLocation: 'Sunset Beach'
     },
     {
         id: 2,
