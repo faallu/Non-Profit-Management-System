@@ -1,16 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, print, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import psycopg2
 import psycopg2.extras
 from bcrypt import hashpw, gensalt, checkpw
+import csv # Library to export data as a tabular sheet that can be read on Excel.
 
 app = Flask(__name__)
 
-DB_HOST = "localhost"
-DB_NAME = "webapp"
-DB_USER = "postgres"
-DB_PASS = "admin"
+db_host = "localhost"
+db_name = "webapp"
+db_pass = "password"
+db_user = "postgres"
 
-conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+conn = psycopg2.connect(dbname=db_name, user=db_user, password=db_pass, host=db_host)
 
 @app.route('/')
 def Index():
@@ -18,7 +19,7 @@ def Index():
     cur.execute("SELECT * FROM UserProfile")
     list_users = cur.fetchall()
     cur.close()
-    return render_template('index.html', list_users=list_users)
+    return render_template('landing.html', list_users=list_users)
 
 @app.route('/landing', methods=['POST','GET'])
 def landing():
