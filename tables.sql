@@ -13,7 +13,7 @@ CREATE TABLE users (
     participate_date TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS events (
+CREATE TABLE events (
     eventID SERIAL PRIMARY KEY,
     event_name VARCHAR(100),
     location VARCHAR(100),
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS events (
     availability_needed TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS volunteers_history (
+CREATE TABLE volunteers_history (
     historyID SERIAL PRIMARY KEY,
     userID INTEGER,
     eventID INTEGER,
