@@ -1,167 +1,175 @@
-from flask import Flask, request, jsonify, current_app
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Text, Date, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
+from flask import Flask, render_template, request, redirect, url_for, print, jsonify
+import psycopg2
+import psycopg2.extras
 from bcrypt import hashpw, gensalt, checkpw
 
 app = Flask(__name__)
-current_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////webapp.db'
-current_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
-#app.app_context().push()
-#db.create_all()
+DB_HOST = "localhost"
+DB_NAME = "webapp"
+DB_USER = "postgres"
+DB_PASS = "admin"
 
-class UserCredentials(db.Model):
-    #__tablename__ = 'UserCredentials'
-    ID = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(25), nullable=False)
-
-    def set_password(self, password):
-        self.password = hashpw(password.encode('utf-8'), gensalt())
-
-    def check_password(self, password):
-        return checkpw(password.encode('utf-8'), self.password)
-
-class UserProfile(db.Model):
-    #__tablename__ = 'UserProfile'
-    userID = db.Column(db.Integer, ForeignKey('UserCredentials.ID'), primary_key=True)
-    fullName = db.Column(db.String(255), nullable=False)
-    address = db.Column(db.Text)
-    city = db.Column(db.String(100))
-    state = db.Column(db.String(2))
-    zipcode = db.Column(db.String(5))
-    #For skills, preferences and availability, if the user don't have any of these, it automatically sets it to N/A.
-    skills = db.Column(db.Text, default = 'N/A')
-    preferences = db.Column(db.Text, default = 'N/A')
-    availability = db.Column(db.Text, default = 'N/A')
-    user = relationship('UserCredentials', back_populates='profile')
-
-UserCredentials.profile = relationship('UserProfile', uselist=False, back_populates='user')
-
-class EventDetails(db.Model):
-    #__tablename__ = 'EventDetails'
-    eventID = db.Column(db.Integer, primary_key=True)
-    eventName = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text)
-    location = db.Column(db.Text)
-    requiredSkills = db.Column(db.Text)
-    urgency = db.Column(Boolean)
-    eventDate = db.Column(Date, nullable=False)
-
-class VolunteerHistory(db.Model):
-    #__tablename__ = 'VolunteerHistory'
-    historyID = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer, ForeignKey('UserCredentials.ID'))
-    eventID = db.Column(db.Integer, ForeignKey('EventDetails.eventID'))
-    participationDate = db.Column(db.Date)
-    user = relationship('UserCredentials')
-    event = relationship('EventDetails')
-
-class States(db.Model):
-    #__tablename__ = 'States'
-    stateCode = db.Column(db.String(2), primary_key=True)
-
-#db.create_all()
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-    if not username or not password:
-        return jsonify({'error': 'Username and password required'}), 400
-    user = UserCredentials(username=username)
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'message': 'User registered successfully'}), 201
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-    user = UserCredentials.query.filter_by(username=username).first()
-    if user and user.check_password(password):
-        return jsonify({'message': 'Login successful'}), 200
-    return jsonify({'error': 'Invalid credentials'}), 401
-
-@app.route('/profile', methods=['POST'])
-def create_profile():
-    data = request.json
-    userID = data.get('userID')
-    fullName = data.get('fullName')
-    address = data.get('address')
-    city = data.get('city')
-    state = data.get('state')
-    zipcode = data.get('zipcode')
-    skills = data.get('skills')
-    preferences = data.get('preferences')
-    availability = data.get('availability')
-    if not userID or not fullName:
-        return jsonify({'error': 'UserID and FullName are required'}), 400
-    profile = UserProfile(
-        userID=userID,
-        fullName=fullName,
-        address=address,
-        city=city,
-        state=state,
-        zipcode=zipcode,
-        skills=skills,
-        preferences=preferences,
-        availability=availability
-    )
-    db.session.add(profile)
-    db.session.commit()
-    return jsonify({'message': 'Profile created successfully'}), 201
-
-@app.route('/events', methods=['GET', 'POST'])
-def create_event():
-    data = request.json
-    eventName = data.get('eventName')
-    description = data.get('description')
-    location = data.get('location')
-    requiredSkills = data.get('requiredSkills')
-    urgency = data.get('urgency')
-    eventDate = data.get('eventDate')
-    if not eventName or not eventDate:
-        return jsonify({'error': 'EventName and EventDate are required'}), 400
-    event = EventDetails(
-        eventName=eventName,
-        description=description,
-        location=location,
-        requiredSkills=requiredSkills,
-        urgency=urgency,
-        eventDate=eventDate
-    )
-    db.session.add(event)
-    db.session.commit()
-    return jsonify({'message': 'Event created successfully'}), 201
-
-@app.route('/volunteer', methods=['GET', 'POST'])
-def volunteer():
-    data = request.json
-    userID = data.get('userID')
-    eventID = data.get('eventID')
-    participationDate = data.get('participationDate')
-    if not userID or not eventID:
-        return jsonify({'error': 'UserID and EventID are required'}), 400
-    history = VolunteerHistory(
-        userID=userID,
-        eventID=eventID,
-        participationDate=participationDate
-    )
-    db.session.add(history)
-    db.session.commit()
-    return jsonify({'message': 'Volunteer history recorded successfully'}), 201
+conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 
 @app.route('/')
-def index():
-    return 'Hello World!'
+def Index():
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT * FROM UserProfile")
+    list_users = cur.fetchall()
+    cur.close()
+    return render_template('index.html', list_users=list_users)
+
+@app.route('/landing', methods=['POST','GET'])
+def landing():
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT * FROM EventDetails ORDER BY eventdate LIMIT 3")
+    events = cur.fetchall()
+    cur.close()
+    
+    return render_template('landing.html', events=events)
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if not username or not password:
+            print('Username and password are required')
+            return redirect(url_for('Index'))
+        
+        hashed_password = hashpw(password.encode('utf-8'), gensalt())
+        
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("INSERT INTO UserCredentials (username, password) VALUES (%s, %s)", 
+                    (username, hashed_password))
+        conn.commit()
+        print('User registered successfully')
+        return redirect(url_for('Index'))
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT * FROM UserCredentials WHERE username = %s", (username,))
+        user = cur.fetchone()
+        cur.close()
+        
+        if user and checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            print('Login successful')
+            return redirect(url_for('Index'))
+        print('Invalid username or password')
+        return redirect(url_for('Index'))
+
+@app.route('/profile', methods=['POST','GET'])
+def create_profile():
+    if request.method == 'POST':
+        userID = request.form['userID']
+        fullName = request.form['fullName']
+        address = request.form['address']
+        city = request.form['city']
+        state = request.form['state']
+        zipcode = request.form['zipcode']
+        skills = request.form.get('skills', 'N/A')
+        preferences = request.form.get('preferences', 'N/A')
+        availability = request.form.get('availability', 'N/A')
+        
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("""INSERT INTO UserProfile (userID, fullName, address, city, state, zipcode, skills, preferences, availability)
+                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+                    (userID, fullName, address, city, state, zipcode, skills, preferences, availability))
+        conn.commit()
+        print('Profile created successfully')
+        return redirect(url_for('Index'))
+
+@app.route('/events', methods=['POST','GET'])
+def events():
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT * FROM EventDetails")
+    events = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    for event in events:
+        cur.execute("""
+            SELECT u.fullName FROM VolunteerHistory v
+            JOIN UserProfile u ON v.userID = u.userID
+            WHERE v.eventID = %s
+        """, (event['eventid'],))
+        volunteers = cur.fetchall()
+        event['volunteers'] = [v['fullName'] for v in volunteers]
+    cur.close()
+
+    return render_template('events.html', events=events)
+
+@app.route('/check-match', methods=['POST', 'GET']) # Implement this in HTML
+def check_match():
+    data = request.json
+    user_id = data['userId']
+    event_id = data['eventId']
+
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT * FROM UserProfile WHERE userID = %s", (user_id,))
+    user = cur.fetchone()
+    cur.close()
+
+    if user:
+        message = f"You are a match for event ID {event_id}!"
+    else:
+        message = "User not found or does not match."
+
+    return jsonify({'message': message})
+
+@app.route('/volunteer', methods=['POST', 'GET'])
+def volunteer():
+    if request.method == 'POST':
+        userID = request.form['userID']
+        eventID = request.form['eventID']
+        participationDate = request.form['participationDate']
+        
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("""INSERT INTO VolunteerHistory (userID, eventID, participationDate)
+                       VALUES (%s, %s, %s)""",
+                    (userID, eventID, participationDate))
+        conn.commit()
+        print('Volunteer history added successfully')
+        return redirect(url_for('Index'))
+
+@app.route('/edit_availability/<id>', methods=['POST', 'GET'])
+def get_user(id):
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute('SELECT * FROM UserProfile WHERE userID = %s', (id,))
+    user = cur.fetchone()
+    cur.close()
+    return render_template('edit_availability.html', user=user)
+
+@app.route('/update/<id>', methods=['POST', 'GET'])
+def update_user(id):
+    if request.method == 'POST':
+        fullName = request.form['fullName']
+        address = request.form['address']
+        city = request.form['city']
+        state = request.form['state']
+        zipcode = request.form['zipcode']
+        skills = request.form['skills']
+        preferences = request.form['preferences']
+        availability = request.form['availability']
+        
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("""
+            UPDATE UserProfile
+            SET fullName = %s, address = %s, city = %s, state = %s, zipcode = %s, 
+                skills = %s, preferences = %s, availability = %s
+            WHERE userID = %s
+        """, (fullName, address, city, state, zipcode, skills, preferences, availability, id))
+        conn.commit()
+        print('User updated successfully')
+        return redirect(url_for('Index'))
+
+# Implement user/event delete functionality
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        app.run(debug=True)
+    app.run(debug=True)
