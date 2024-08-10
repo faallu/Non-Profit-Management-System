@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer History Record</title>
     <link rel="stylesheet" href="history.css">
+    <!-- Library that lets you create a pdf.--> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Library that lets you generate a pdf as a table.-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <!-- Header Section -->
 <header class="navbar">
@@ -62,6 +66,33 @@
                 </tbody>
             </table>
         </div>
+        <!-- Button to download PDF file -->
+        <button onclick="generatePDF()">Download PDF</button>
     </div>
+
+    <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(20);
+            doc.text("Volunteer History Record", 10, 10);
+
+            doc.setFontSize(11);
+            doc.text(" ", 10, 20);
+
+            doc.autoTable({
+                head: [['User', 'Event', 'Date', 'Skills', 'Event Details']],
+                body: [
+                    ['Jane Doe', 'Bake Sale', '2024-07-15', 'Cooking', 'Organized and led a group of volunteers to bake sweets for a bake sale.'],
+                    ['Jane Doe', 'Kid\'s Camp', '2024-06-10', 'Teaching', 'Assisted in helping elementary students learn basic camping skills.']
+                ],
+                startY: 30,
+                theme: 'striped'
+            });
+
+            doc.save('volunteer_history_record.pdf');
+        }
+    </script>
 </body>
 </html>
